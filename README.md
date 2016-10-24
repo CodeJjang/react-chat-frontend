@@ -4,9 +4,5 @@ This project was bootstrapped with [Create React App](https://github.com/faceboo
 Configure the app using the following environment variables (you can use a .env file in the root of the directory or pass them directly):
 
 ```
-REACT_APP_COMMENTS_API_URL
-REACT_APP_USERS_API_URL
-REACT_APP_ROOMS_API_URL
-REACT_APP_ROOM_API_JOIN_URL
-REACT_APP_ROOM_API_JOIN_GLOBAL_URL
+REACT_APP_SERVER_API_URL
 ```  

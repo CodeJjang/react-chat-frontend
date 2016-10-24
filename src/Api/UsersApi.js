@@ -1,8 +1,9 @@
 import $ from 'jquery';
 
+const _apiUrl = process.env.REACT_APP_SERVER_API_URL + '/user';
 export function loadUsers(roomId) {
 	return $.ajax({
-		url: process.env.REACT_APP_USERS_API_URL,
+		url: _apiUrl,
 		dataType: 'json',
 		data: {
 			roomId: roomId

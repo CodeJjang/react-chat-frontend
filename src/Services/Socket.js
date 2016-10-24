@@ -5,6 +5,9 @@ const _newCommentSyncEventName = 'sync_comments',
     _newUserSyncEventName = 'sync_users',
     _newRoomSyncEventName = 'sync_rooms';
 
+const _joinRoomApiUrl = process.env.REACT_APP_SERVER_API_URL + '/room/join',
+    _joinGlobalRoomApiUrl = process.env.REACT_APP_SERVER_API_URL + '/room/joinGlobalRoom';
+
 class Socket {
     constructor(props) {
         this.io = SailsIOClient(SocketIOClient);
@@ -30,7 +33,7 @@ class Socket {
         const self = this;
         return new Promise(function(resolve, reject) {
             console.log('Attempting to join global room...');
-            self.io.socket.post(process.env.REACT_APP_ROOM_API_JOIN_GLOBAL_URL, function(body, JWR) {
+            self.io.socket.post(_joinGlobalRoomApiUrl, function(body, JWR) {
                 if (JWR.statusCode !== 200) {
                     console.log('Failed joining global room.');
                     console.log('Sails responded with: ', body);
@@ -51,7 +54,7 @@ class Socket {
         return new Promise(function(resolve, reject) {
             console.log('Attempting to join room of id %s...', roomId);
             self.io.socket.post(
-                process.env.REACT_APP_ROOM_API_JOIN_URL,
+                _joinRoomApiUrl,
                 { roomId: roomId },
                 function(body, JWR) {
                     if (JWR.statusCode !== 200) {

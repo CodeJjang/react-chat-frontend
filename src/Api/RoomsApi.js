@@ -1,8 +1,9 @@
 import $ from 'jquery';
 
+const _apiUrl = process.env.REACT_APP_SERVER_API_URL + '/room';
 export function loadRooms() {
 	return $.ajax({
-		url: process.env.REACT_APP_ROOMS_API_URL,
+		url: _apiUrl,
 		dataType: 'json',
 		xhrFields: {
 			withCredentials: true
@@ -12,7 +13,7 @@ export function loadRooms() {
 
 export function postRoom(room) {
 	return $.ajax({
-			url: process.env.REACT_APP_ROOMS_API_URL,
+			url: _apiUrl,
 			xhrFields: {
 				withCredentials: true
 			},

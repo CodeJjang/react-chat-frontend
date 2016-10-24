@@ -1,8 +1,9 @@
 import $ from 'jquery';
 
+const _apiUrl = process.env.REACT_APP_SERVER_API_URL + '/comment';
 export function loadComments(roomId) {
 	return $.ajax({
-		url: process.env.REACT_APP_COMMENTS_API_URL,
+		url: _apiUrl,
 		dataType: 'json',
 		data: {
 			roomId: roomId
@@ -15,7 +16,7 @@ export function loadComments(roomId) {
 
 export function postComment(comment) {
 	return $.ajax({
-			url: process.env.REACT_APP_COMMENTS_API_URL,
+			url: _apiUrl,
 			xhrFields: {
 				withCredentials: true
 			},
