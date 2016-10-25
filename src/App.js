@@ -7,7 +7,7 @@ class App extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      socket: new Socket({url: 'http://localhost:1337'})
+      socket: new Socket({url: process.env.REACT_APP_SERVER_API_URL})
     };
   }
   render() {

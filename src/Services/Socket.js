@@ -5,9 +5,6 @@ const _newCommentSyncEventName = 'sync_comments',
     _newUserSyncEventName = 'sync_users',
     _newRoomSyncEventName = 'sync_rooms';
 
-const _joinRoomApiUrl = process.env.REACT_APP_SERVER_API_URL + '/room/join',
-    _joinGlobalRoomApiUrl = process.env.REACT_APP_SERVER_API_URL + '/room/joinGlobalRoom';
-
 class Socket {
     constructor(props) {
         this.io = SailsIOClient(SocketIOClient);
@@ -33,19 +30,21 @@ class Socket {
         const self = this;
         return new Promise(function(resolve, reject) {
             console.log('Attempting to join global room...');
-            self.io.socket.post(_joinGlobalRoomApiUrl, function(body, JWR) {
-                if (JWR.statusCode !== 200) {
-                    console.log('Failed joining global room.');
-                    console.log('Sails responded with: ', body);
-                    console.log('with headers: ', JWR.headers);
-                    console.log('and with status code: ', JWR.statusCode);
-                    reject();
-                } else {
-                    console.log('Joined global room.');
-                    self._listenToSync();
-                    resolve();
-                }
-            });
+            self.io.socket.post(
+                self.io.sails.url + '/room/joinGlobalRoom',
+                function(body, JWR) {
+                    if (JWR.statusCode !== 200) {
+                        console.log('Failed joining global room.');
+                        console.log('Sails responded with: ', body);
+                        console.log('with headers: ', JWR.headers);
+                        console.log('and with status code: ', JWR.statusCode);
+                        reject();
+                    } else {
+                        console.log('Joined global room.');
+                        self._listenToSync();
+                        resolve();
+                    }
+                });
         });
     }
 
@@ -54,7 +53,7 @@ class Socket {
         return new Promise(function(resolve, reject) {
             console.log('Attempting to join room of id %s...', roomId);
             self.io.socket.post(
-                _joinRoomApiUrl,
+                self.io.sails.url + '/room/join',
                 { roomId: roomId },
                 function(body, JWR) {
                     if (JWR.statusCode !== 200) {
