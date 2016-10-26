@@ -15,7 +15,7 @@ class Socket {
         this._usersSyncCallback = null;
         this._roomsSyncCallback = null;
 
-        this._stopListenToSync = this._stopListenToSync.bind(this);
+        this.stopListenToSync = this.stopListenToSync.bind(this);
         this._listenToSync = this._listenToSync.bind(this);
         this._listenToCommentsSync = this._listenToCommentsSync.bind(this);
         this._listenToUsersSync = this._listenToUsersSync.bind(this);
@@ -71,14 +71,14 @@ class Socket {
                 });
         });
     }
-    _stopListenToSync() {
+    stopListenToSync() {
         this._socketCallbacks.forEach(params => {
             this.io.socket.off(...params);
         });
     }
 
     _listenToSync() {
-        this._stopListenToSync();
+        this.stopListenToSync();
         this._listenToCommentsSync();
         this._listenToUsersSync();
         this._listenToRoomsSync();

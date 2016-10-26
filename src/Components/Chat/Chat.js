@@ -76,7 +76,7 @@ class Chat extends Component {
 		this.joinRoom();
 	}
 	componentWillUnmount() {
-		this.unregisterToSyncMessages();
+		this.props.socket.stopListenToSync();
 	}
 	onAuthenticated() {
 		return this.registerToSyncMessages()
