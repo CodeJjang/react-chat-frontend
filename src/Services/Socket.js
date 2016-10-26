@@ -1,5 +1,6 @@
 import SailsIOClient from 'sails.io.js';
 import SocketIOClient from 'socket.io-client';
+import urljoin from 'url-join';
 
 const _newCommentSyncEventName = 'sync_comments',
     _newUserSyncEventName = 'sync_users',
@@ -31,7 +32,7 @@ class Socket {
         return new Promise(function(resolve, reject) {
             console.log('Attempting to join global room...');
             self.io.socket.post(
-                self.io.sails.url + '/room/joinGlobalRoom',
+                urljoin(self.io.sails.url, '/room/joinGlobalRoom'),
                 function(body, JWR) {
                     if (JWR.statusCode !== 200) {
                         console.log('Failed joining global room.');
@@ -53,7 +54,7 @@ class Socket {
         return new Promise(function(resolve, reject) {
             console.log('Attempting to join room of id %s...', roomId);
             self.io.socket.post(
-                self.io.sails.url + '/room/join',
+                urljoin(self.io.sails.url, '/room/join'),
                 { roomId: roomId },
                 function(body, JWR) {
                     if (JWR.statusCode !== 200) {

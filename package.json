@@ -21,7 +21,8 @@
     "redux-thunk": "^2.1.0",
     "sails.io.js": "^0.13.8",
     "socket.io-client": "^1.5.0",
-    "toastr": "^2.1.2"
+    "toastr": "^2.1.2",
+    "url-join": "^1.1.0"
   },
   "scripts": {
     "start": "react-scripts start",
