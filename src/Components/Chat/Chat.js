@@ -14,6 +14,10 @@ class Chat extends Component {
 	constructor(props) {
 		super(props);
 		
+		this.state = {
+			roomChanged: false
+		};
+
 		// comments methods
 		this.loadComments = this.loadComments.bind(this);
 		this.postComment = this.postComment.bind(this);
@@ -55,7 +59,17 @@ class Chat extends Component {
 	}
 	componentWillReceiveProps(nextProps) {
 		if(this.props.params.id !== nextProps.params.id) {
+			this.setState({
+				roomChanged: true
+			});
+		}
+	}
+	componentDidUpdate(){
+		if(this.state.roomChanged) {
 			this.joinRoom();
+			this.setState({
+				roomChanged: false
+			});
 		}
 	}
 	componentDidMount() {
